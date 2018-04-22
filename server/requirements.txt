@@ -10,4 +10,5 @@ pydocstyle==2.1.1
 pytz==2018.4
 six==1.11.0
 snowballstemmer==1.2.1
+SQLAlchemy==1.2.7
 Werkzeug==0.14.1

@@ -50,7 +50,7 @@ pip freeze > requirements.txt
 
 ### 运行
 ```bash
-python server.py
+python run.py
 ```
 
 ## 开发规范

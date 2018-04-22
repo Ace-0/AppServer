@@ -1,4 +1,5 @@
-from server.app import *
+# coding=utf-8
+from .. import *
 
 
 class Accounts(Base):

@@ -6,7 +6,7 @@ api = Namespace('authorization')
 
 
 @api.route('/')
-class Authorization(Resource):
+class AuthorizationResource(Resource):
     """Deal with user authorization."""
 
     def post(self):
