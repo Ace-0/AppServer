@@ -14,15 +14,18 @@
 ```
 └──server：服务端开发的源码
      ├─app：服务端主要代码
-     │    ├─__init__.py：包初始化文件
-     │    ├─model.py：定义数据模型
+     │    ├─__init__.py：初始化app对象
+     │    ├─model：定义数据模型及数据表相关操作
+     │    │    ├─__init__.py：初始化数据库连接
+     │    │    ├─...
+     │    │
      │    └─api：各模块API
-     │         ├─__init__.py：包初始化文件
+     │         ├─__init__.py：初始化api命名空间
      │         ├─...
+     │
      ├─instance
      │    └─config.py：私密配置文件
      ├─config.py：普通配置文件
-     ├─gunicorn_config.py：Gunicorn配置文件
      ├─run.py：入口文件
      └─requirements.txt：第三方包需求文件
 ```
@@ -50,7 +53,27 @@ pip freeze > requirements.txt
 
 ### 运行
 ```bash
-python run.py
+# 生产模式，使用Gunicorn运行，同时指定进程数(-w)和监听端口(-b)
+gunicorn -w 4 -b 0.0.0.0:10086 production:app
+# 测试模式，同时指定端口
+python run.py -m test -p 10086
+```
+**注**：运行项目前，需要在server目录下新建`instance`目录，并在`instance`目录下新建`config.py`文件，在`config.py`中添加项目的私密配置，例如：
+
+```python
+DB_USERNAME = 'username'      # MySQL用户名
+DB_PASSWORD = 'password'      # MySQL密码
+DB_HOST = '127.0.0.1'         # MySQL主机
+DB_PORT = '3306'              # 数据库端口
+DB_NAME = 'yelda'             # 数据库名称
+SECRET_KEY = 'I wont tell u'  # 用户会话管理秘钥
+PHOTOS_FOLDER = 'yelda/photos'                  # 头像图片文件夹
+MEDICAL_IMAGES_FOLDER = 'yelda/medical-images'  # 医疗图像文件夹
+MAX_CONTENT_LENGTH = 16 * 1024 * 1024           # 上传文件大小限制
+CSV_PERSONAL_FOLDER = 'yelda/download/csv_personal/'    # 个人的标注结果文件夹
+CSV_ALL_FOLDER = 'yelda/download/csv_all/'              # 所有医生的标注结果文件夹
+ADMIN_USERNAME = 'Admin'        # 管理员用户名
+ADMIN_PASSWORD = '12345678'     # 管理员密码
 ```
 
 ## 开发规范
@@ -58,7 +81,7 @@ python run.py
 - Git的使用参考[Git开发规范](https://github.com/TheYelda/Dashboard/blob/master/git_collaboration_guide.md)。
 
 ## 数据模型
-TODO
+![](https://raw.githubusercontent.com/TheYelda/Dashboard/master/docs/images/db.png)
 
 ## RESTful API
-<https://github.com/TheYelda/Dashboard/blob/master/api.md>
+<https://github.com/TheYelda/Dashboard/blob/master/docs/design/api.md>
