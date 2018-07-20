@@ -1,4 +1,4 @@
-FROM daocloud.io/library/python:3.5-alpine
+FROM hub.c.163.com/library/python:3.5
 LABEL maintainer="Jarvis-Wong"
 
 COPY server/ /www/
